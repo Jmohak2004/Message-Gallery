@@ -1,6 +1,6 @@
 import { Example } from '@/types';
 import { PencilIcon } from 'lucide-react';
-
+// example card css using gpt
 interface ExampleCardProps {
   example: Example;
   onEdit: (example: Example) => void;

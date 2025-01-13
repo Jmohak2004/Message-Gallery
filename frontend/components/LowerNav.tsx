@@ -1,5 +1,5 @@
 'use client';
-
+//lower nav , used gpt for css
 import React, { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
@@ -32,7 +32,6 @@ const LowerNav = () => {
     fetchCategories();
   }, [selectedCategory]);
 
-  // Extract category ID from pathname if available
   useEffect(() => {
     const categoryId = pathname.split('/').pop();
     if (categoryId) {

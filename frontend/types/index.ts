@@ -14,3 +14,4 @@ export interface Example {
     category: string;
     examples: Example[];
   }
+  //for typesafety
