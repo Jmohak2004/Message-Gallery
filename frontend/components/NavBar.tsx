@@ -22,7 +22,7 @@ const Navbar = () => (
             Contact Us
           </a>
         </div>
-        {/* //non functional buttons */}
+        
         <div className="hidden md:flex items-center space-x-4">
           <button className="text-gray-600 hover:text-blue-600">Sign In</button>
           <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">

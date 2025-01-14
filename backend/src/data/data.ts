@@ -8,6 +8,7 @@ const data: {
   }[];
 }[] = [
   {
+    
       id: "1",
       category: "Alert Update",
       examples: [

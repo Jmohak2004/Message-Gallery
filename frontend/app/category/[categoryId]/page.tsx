@@ -1,5 +1,5 @@
 'use client';
-// dynamically routed page 
+// dynamically routed pages 
 import { useEffect, useState } from 'react';
 import { Example, CategoryResponse } from '@/types';
 import ExampleGrid from '@/components/templates/ExampleGrid';

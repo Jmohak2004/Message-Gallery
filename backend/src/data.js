@@ -4,7 +4,6 @@ export default function handler(req, res) {
   const { categoryId } = req.query;
 
   if (categoryId) {
-    // Fetch specific category data
     const category = data.find((item) => item.id === categoryId);
     if (category) {
       res.status(200).json(category);

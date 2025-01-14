@@ -37,4 +37,3 @@ export default function RootLayout({
   );
 }
 
-// just attached Nav and LowerNav

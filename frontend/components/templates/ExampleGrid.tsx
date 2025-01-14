@@ -1,6 +1,5 @@
 import { Example } from '@/types';
 import ExampleCard from './ExampleCard';
-// css made using claude
 interface ExampleGridProps {
   examples: Example[];
   onEdit: (example: Example) => void;
