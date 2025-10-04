@@ -12,7 +12,7 @@ const Navbar = () => (
           <a href="/" className="text-gray-600 hover:text-blue-600">
             Home
           </a>
-          <a href="#" className="text-gray-600 hover:text-blue-600">
+          {/* <a href="#" className="text-gray-600 hover:text-blue-600">
             About
           </a>
           <a href="#" className="text-gray-600 hover:text-blue-600">
@@ -20,15 +20,15 @@ const Navbar = () => (
           </a>
           <a href="#" className="text-gray-600 hover:text-blue-600">
             Contact Us
-          </a>
+          </a> */}
         </div>
         
-        <div className="hidden md:flex items-center space-x-4">
+        {/* <div className="hidden md:flex items-center space-x-4">
           <button className="text-gray-600 hover:text-blue-600">Sign In</button>
           <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
             Sign Up
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   </nav>
