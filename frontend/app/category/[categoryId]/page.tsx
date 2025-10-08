@@ -1,14 +1,19 @@
 'use client';
-// dynamically routed pages 
-import { useEffect, useState } from 'react';
+
+import { useEffect, useState, use } from 'react';
 import { Example, CategoryResponse } from '@/types';
 import ExampleGrid from '@/components/templates/ExampleGrid';
 
-export default function CategoryPage({ params }: { params: { categoryId: string } }) {
+interface CategoryPageProps {
+  params: Promise<{ categoryId: string }>; // params is now a Promise
+}
+
+export default function CategoryPage({ params }: CategoryPageProps) {
+  // Use React.use() to unwrap the promise
+  const { categoryId } = use(params);
+
   const [categoryData, setCategoryData] = useState<CategoryResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-
-
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -16,16 +21,17 @@ export default function CategoryPage({ params }: { params: { categoryId: string 
       try {
         setIsLoading(true);
         setError(null);
-        const response = await fetch(`https://message-gallery-1.onrender.com/api/data/${params.categoryId}`);
-        
+
+        const response = await fetch(`https://message-gallery-1.onrender.com/api/data/${categoryId}`);
+
         if (!response.ok) {
           throw new Error('Failed to fetch category data');
         }
-        
+
         const data = await response.json();
         setCategoryData(data);
-      } catch (error) {
-        console.error('Error:', error);
+      } catch (err) {
+        console.error('Error:', err);
         setError('Failed to load category data');
       } finally {
         setIsLoading(false);
@@ -33,50 +39,20 @@ export default function CategoryPage({ params }: { params: { categoryId: string 
     };
 
     fetchCategoryData();
-  }, [params.categoryId]);
+  }, [categoryId]); // use the unwrapped categoryId
 
   const handleEdit = (example: Example) => {
-    
     console.log('Editing example:', example);
   };
 
-  if (isLoading) {
-    return (
-      <div className="container mx-auto mt-24 p-4">
-        <div className="flex items-center justify-center min-h-[400px]">
-          <div className="text-lg text-gray-600">Loading...</div>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="container mx-auto mt-24 p-4">
-        <div className="flex items-center justify-center min-h-[400px]">
-          <div className="text-lg text-red-600">{error}</div>
-        </div>
-      </div>
-    );
-  }
-
-  if (!categoryData) {
-    return (
-      <div className="container mx-auto mt-24 p-4">
-        <div className="flex items-center justify-center min-h-[400px]">
-          <div className="text-lg text-gray-600">Category not found</div>
-        </div>
-      </div>
-    );
-  }
+  if (isLoading) return <div className="text-center mt-24">Loading...</div>;
+  if (error) return <div className="text-center mt-24 text-red-600">{error}</div>;
+  if (!categoryData) return <div className="text-center mt-24">Category not found</div>;
 
   return (
     <div className="container mx-auto mt-24 p-4">
       <h1 className="text-2xl font-bold mb-6">{categoryData.category}</h1>
-      <ExampleGrid 
-        examples={categoryData.examples} 
-        onEdit={handleEdit}
-      />
+      <ExampleGrid examples={categoryData.examples} onEdit={handleEdit} />
     </div>
   );
 }

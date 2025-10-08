@@ -4,22 +4,22 @@ import { useState } from 'react';
 
 interface ExampleCardProps {
   example: Example;
+  onEdit: (example: Example) => void; // Added this
 }
 
-const ExampleCard = ({ example }: ExampleCardProps) => {
+const ExampleCard = ({ example, onEdit }: ExampleCardProps) => {
   const [isCopied, setIsCopied] = useState(false);
 
   // Function to handle copying text to the clipboard
   const handleCopy = () => {
-    navigator.clipboard.writeText(example.text).then(() => {
-      setIsCopied(true);
-      // Reset the icon back to the copy icon after 2 seconds
-      setTimeout(() => {
-        setIsCopied(false);
-      }, 2000);
-    }).catch(err => {
-      console.error('Failed to copy text: ', err);
-    });
+    navigator.clipboard.writeText(example.text)
+      .then(() => {
+        setIsCopied(true);
+        setTimeout(() => setIsCopied(false), 2000);
+      })
+      .catch(err => {
+        console.error('Failed to copy text: ', err);
+      });
   };
 
   return (
@@ -30,8 +30,10 @@ const ExampleCard = ({ example }: ExampleCardProps) => {
       <p className="text-gray-600 text-sm whitespace-pre-line mb-8">
         {example.text}
       </p>
+
+      {/* Copy button */}
       <button 
-        className="absolute bottom-4 right-4 p-2 rounded-full hover:bg-gray-100 transition-colors"
+        className="absolute bottom-4 right-12 p-2 rounded-full hover:bg-gray-100 transition-colors"
         onClick={handleCopy}
         aria-label="Copy text"
       >
@@ -40,6 +42,14 @@ const ExampleCard = ({ example }: ExampleCardProps) => {
         ) : (
           <ClipboardCopy className="w-5 h-5 text-gray-600" />
         )}
+      </button>
+
+      {/* Edit button */}
+      <button
+        className="absolute bottom-4 right-4 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+        onClick={() => onEdit(example)}
+      >
+        Edit
       </button>
     </div>
   );

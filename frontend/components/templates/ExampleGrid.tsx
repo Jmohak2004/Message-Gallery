@@ -1,5 +1,6 @@
 import { Example } from '@/types';
 import ExampleCard from './ExampleCard';
+
 interface ExampleGridProps {
   examples: Example[];
   onEdit: (example: Example) => void;
