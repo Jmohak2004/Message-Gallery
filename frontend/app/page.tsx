@@ -62,7 +62,7 @@ const LandingPage: React.FC = () => {
           whileHover={{ scale: 1.05 }}
           className="bg-indigo-600 text-white px-6 py-3 rounded-xl text-lg font-medium hover:bg-indigo-700 transition"
         >
-          Explore Templates
+          Click on the tabs to explore ⬆️
         </motion.button>
       </section>
 
