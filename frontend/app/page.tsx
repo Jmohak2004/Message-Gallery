@@ -1,10 +1,31 @@
+"use client";
 import React from "react";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion"; // compatible with Framer Motion v10+
 import { ClipboardCheck, MessageCircle, Zap, Mail } from "lucide-react";
 
-const LandingPage = () => {
+// -------------------- FeatureCard Component --------------------
+interface FeatureCardProps {
+  icon: React.ReactNode;
+  title: string;
+  desc: string;
+}
+
+const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, desc }) => (
+  <motion.div
+    whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
+    className="bg-white border rounded-2xl shadow-md p-8 text-center"
+  >
+    <div className="flex justify-center mb-4">{icon}</div>
+    <h3 className="text-lg font-semibold mb-2 text-gray-800">{title}</h3>
+    <p className="text-gray-500 text-sm">{desc}</p>
+  </motion.div>
+);
+
+// -------------------- LandingPage Component --------------------
+const LandingPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex flex-col">
+
       {/* Navbar */}
       <header className="flex justify-between items-center px-10 py-6 bg-white shadow-sm">
         <h1 className="text-2xl font-bold text-indigo-600">MessageMate</h1>
@@ -24,6 +45,7 @@ const LandingPage = () => {
           className="text-5xl font-extrabold text-gray-900 mb-4 leading-tight"
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
         >
           Copy Smart, Respond Faster
         </motion.h1>
@@ -31,6 +53,7 @@ const LandingPage = () => {
           className="text-gray-600 max-w-2xl mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
         >
           Access pre-written messages for every situation — alerts, emails, auto-replies, and emergencies.
           Save time and respond like a pro with just one click.
@@ -86,16 +109,5 @@ const LandingPage = () => {
     </div>
   );
 };
-
-const FeatureCard = ({ icon, title, desc }) => (
-  <motion.div
-    whileHover={{ scale: 1.05 }}
-    className="bg-white border rounded-2xl shadow-md p-8 text-center"
-  >
-    <div className="flex justify-center mb-4">{icon}</div>
-    <h3 className="text-lg font-semibold mb-2 text-gray-800">{title}</h3>
-    <p className="text-gray-500 text-sm">{desc}</p>
-  </motion.div>
-);
 
 export default LandingPage;

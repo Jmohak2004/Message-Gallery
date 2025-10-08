@@ -16,7 +16,7 @@ export default function CategoryPage({ params }: { params: { categoryId: string 
       try {
         setIsLoading(true);
         setError(null);
-        const response = await fetch(`http://localhost:5050/api/data/${params.categoryId}`);
+        const response = await fetch(`https://message-gallery-1.onrender.com/api/data/${params.categoryId}`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch category data');
