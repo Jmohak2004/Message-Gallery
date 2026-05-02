@@ -13,11 +13,11 @@ interface FeatureCardProps {
 const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, desc }) => (
   <motion.div
     whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
-    className="bg-white border rounded-2xl shadow-md p-8 text-center"
+    className="bg-white border rounded-2xl shadow-md p-4 md:p-8 text-center"
   >
-    <div className="flex justify-center mb-4">{icon}</div>
-    <h3 className="text-lg font-semibold mb-2 text-gray-800">{title}</h3>
-    <p className="text-gray-500 text-sm">{desc}</p>
+    <div className="flex justify-center mb-2 md:mb-4">{icon}</div>
+    <h3 className="text-base md:text-lg font-semibold mb-1 md:mb-2 text-gray-800">{title}</h3>
+    <p className="text-gray-500 text-xs md:text-sm">{desc}</p>
   </motion.div>
 );
 
@@ -26,23 +26,10 @@ const LandingPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex flex-col">
 
-      {/* Navbar */}
-      <header className="flex justify-between items-center px-10 py-6 bg-white shadow-sm">
-        <h1 className="text-2xl font-bold text-indigo-600">MessageMate</h1>
-        <nav className="flex gap-6">
-          <a href="#features" className="text-gray-600 hover:text-indigo-600">Features</a>
-          <a href="#about" className="text-gray-600 hover:text-indigo-600">About</a>
-          <a href="#contact" className="text-gray-600 hover:text-indigo-600">Contact</a>
-        </nav>
-        <button className="bg-indigo-600 text-white px-4 py-2 rounded-xl hover:bg-indigo-700 transition">
-          Get Started
-        </button>
-      </header>
-
       {/* Hero Section */}
       <section className="flex flex-col items-center text-center px-6 py-20 bg-gradient-to-br from-indigo-50 via-white to-indigo-100">
         <motion.h1
-          className="text-5xl font-extrabold text-gray-900 mb-4 leading-tight"
+          className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 leading-tight"
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -50,7 +37,7 @@ const LandingPage: React.FC = () => {
           Copy Smart, Respond Faster
         </motion.h1>
         <motion.p
-          className="text-gray-600 max-w-2xl mb-8"
+          className="text-gray-600 max-w-2xl mb-8 text-sm md:text-base"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6 }}
@@ -67,23 +54,23 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 px-8 bg-white">
-        <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
+      <section id="features" className="py-12 md:py-20 px-4 md:px-8 bg-white">
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-gray-800">
           Why Choose MessageMate?
         </h2>
-        <div className="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10 max-w-6xl mx-auto">
           <FeatureCard
-            icon={<ClipboardCheck className="w-10 h-10 text-indigo-600" />}
+            icon={<ClipboardCheck className="w-8 h-8 md:w-10 md:h-10 text-indigo-600" />}
             title="One-Click Copy"
             desc="Instantly copy professional messages to your clipboard with a single click."
           />
           <FeatureCard
-            icon={<MessageCircle className="w-10 h-10 text-indigo-600" />}
+            icon={<MessageCircle className="w-8 h-8 md:w-10 md:h-10 text-indigo-600" />}
             title="Category-Wise Templates"
             desc="Find messages organized by category — alerts, replies, emergencies, and more."
           />
           <FeatureCard
-            icon={<Zap className="w-10 h-10 text-indigo-600" />}
+            icon={<Zap className="w-8 h-8 md:w-10 md:h-10 text-indigo-600" />}
             title="AI-Enhanced Messages"
             desc="Our AI improves tone, clarity, and impact for every message you copy."
           />
@@ -91,19 +78,19 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-indigo-600 text-white text-center">
-        <Mail className="mx-auto mb-4 w-12 h-12" />
-        <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
-        <p className="text-indigo-100 mb-6">
+      <section className="py-12 md:py-20 bg-indigo-600 text-white text-center">
+        <Mail className="mx-auto mb-4 w-8 h-8 md:w-12 md:h-12" />
+        <h2 className="text-2xl md:text-3xl font-bold mb-4">Ready to Get Started?</h2>
+        <p className="text-indigo-100 mb-6 text-sm md:text-base">
           Sign up today and access 1000+ pre-built message templates.
         </p>
-        <button className="bg-white text-indigo-600 px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition">
+        <button className="bg-white text-indigo-600 px-4 py-2 md:px-6 md:py-3 rounded-xl font-semibold hover:bg-gray-100 transition text-sm md:text-base">
           Join for Free
         </button>
       </section>
 
       {/* Footer */}
-      <footer className="py-6 text-center text-gray-500 text-sm bg-gray-50 border-t">
+      <footer className="py-4 md:py-6 text-center text-gray-500 text-xs md:text-sm bg-gray-50 border-t">
         © {new Date().getFullYear()} MessageMate. All rights reserved.
       </footer>
     </div>
