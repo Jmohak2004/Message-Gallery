@@ -42,12 +42,12 @@ const LowerNav = () => {
   return (
     <div className="fixed top-16 left-0 right-0 bg-white shadow-sm z-40">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="flex overflow-x-auto py-3 space-x-4 no-scrollbar">
+        <div className="flex overflow-x-auto py-3 space-x-2 md:space-x-4 no-scrollbar">
           {categories.map((category) => (
             <Link
               key={category.id}
               href={`/category/${category.id}`}
-              className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors
+              className={`whitespace-nowrap px-3 py-1.5 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-medium transition-colors
                 ${selectedCategory === category.id 
                   ? 'bg-blue-600 text-white' 
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
