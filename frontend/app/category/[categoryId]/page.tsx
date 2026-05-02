@@ -22,7 +22,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
         setIsLoading(true);
         setError(null);
 
-        const response = await fetch(`https://message-gallery-1.onrender.com/api/data/${categoryId}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5050'}/api/data/${categoryId}`);
 
         if (!response.ok) {
           throw new Error('Failed to fetch category data');
@@ -45,12 +45,12 @@ export default function CategoryPage({ params }: CategoryPageProps) {
     console.log('Editing example:', example);
   };
 
-  if (isLoading) return <div className="text-center pt-32">Loading...</div>;
-  if (error) return <div className="text-center pt-32 text-red-600">{error}</div>;
-  if (!categoryData) return <div className="text-center pt-32">Category not found</div>;
+  if (isLoading) return <div className="text-center pt-24">Loading...</div>;
+  if (error) return <div className="text-center pt-24 text-red-600">{error}</div>;
+  if (!categoryData) return <div className="text-center pt-24">Category not found</div>;
 
   return (
-    <div className="container mx-auto pt-32 px-4 md:p-4">
+    <div className="container mx-auto pt-24 px-4 md:p-4">
       <h1 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">{categoryData.category}</h1>
       <ExampleGrid examples={categoryData.examples} onEdit={handleEdit} />
     </div>

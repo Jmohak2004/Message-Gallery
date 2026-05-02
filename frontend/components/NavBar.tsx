@@ -10,7 +10,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between h-16 items-center">
           <div className="flex-shrink-0">
-            <div className="text-xl font-bold text-blue-600">TemplateHub</div>
+            <div className="text-xl font-bold text-blue-600">MessageMate</div>
           </div>
 
           {/* Desktop Navigation */}
