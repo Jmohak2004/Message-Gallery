@@ -8,6 +8,7 @@ import categoryRoutes from './routes/category.routes';
 import exampleRoutes from './routes/example.routes';
 import authRoutes from './routes/auth.routes';
 import aiRoutes from './routes/ai.routes';
+import userRoutes from './routes/user.routes';
 import { errorHandler } from './middlewares/error.middleware';
 import { morganMiddleware } from './middlewares/morgan.middleware';
 
@@ -42,6 +43,7 @@ app.get('/', (_req: Request, res: Response) => {
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
 app.use('/api/data', dataRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/examples', exampleRoutes);
