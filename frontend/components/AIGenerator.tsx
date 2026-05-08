@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { api } from '@/lib/api';
 import { Wand2, Copy, Check, Loader2 } from 'lucide-react';
 import { useAuthStore } from '@/store/authStore';
+import { toast } from 'sonner';
 
 export default function AIGenerator() {
   const [prompt, setPrompt] = useState('');
@@ -19,8 +20,9 @@ export default function AIGenerator() {
     try {
       const response = await api.generateAI(prompt, tone);
       setResult(response.result);
+      toast.success('Message generated successfully!');
     } catch (err) {
-      console.error(err);
+      toast.error('Failed to generate message. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -29,6 +31,7 @@ export default function AIGenerator() {
   const handleCopy = () => {
     navigator.clipboard.writeText(result);
     setCopied(true);
+    toast.info('Copied to clipboard');
     setTimeout(() => setCopied(false), 2000);
   };
 
