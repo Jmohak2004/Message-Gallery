@@ -3,7 +3,7 @@ import { z } from 'zod';
 export const createCategorySchema = z.object({
   body: z.object({
     name: z.string({
-      required_error: 'Category name is required',
+      message: 'Category name is required',
     }).min(2, 'Name must be at least 2 characters'),
     description: z.string().optional(),
   }),

@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import * as CategoryService from '../services/category.service';
 import * as ExampleService from '../services/example.service';
 
-export const getCategories = async (_req: Request, res: Response) => {
+export const getCategories = async (_req: Request, res: Response): Promise<void> => {
   try {
     const categories = await CategoryService.getAllCategories();
     const formattedCategories = categories.map((category: any) => ({
@@ -16,17 +16,19 @@ export const getCategories = async (_req: Request, res: Response) => {
   }
 };
 
-export const getCategoryData = async (req: Request, res: Response) => {
+export const getCategoryData = async (req: Request, res: Response): Promise<void> => {
   try {
     const { categoryId } = req.params;
     
     if (!categoryId.match(/^[0-9a-fA-F]{24}$/)) {
-      return res.status(400).json({ error: 'Invalid category ID format' });
+      res.status(400).json({ error: 'Invalid category ID format' });
+      return;
     }
 
     const category = await CategoryService.getCategoryById(categoryId);
     if (!category) {
-      return res.status(404).json({ error: 'Category not found' });
+      res.status(404).json({ error: 'Category not found' });
+      return;
     }
 
     const examples = await ExampleService.getExamplesByCategoryId(categoryId);
@@ -46,12 +48,13 @@ export const getCategoryData = async (req: Request, res: Response) => {
   }
 };
 
-export const createCategory = async (req: Request, res: Response) => {
+export const createCategory = async (req: Request, res: Response): Promise<void> => {
   try {
     const { name, description } = req.body;
     
     if (!name) {
-      return res.status(400).json({ error: 'Category name is required' });
+      res.status(400).json({ error: 'Category name is required' });
+      return;
     }
 
     const category = await CategoryService.createCategory(name, description);
@@ -63,7 +66,8 @@ export const createCategory = async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     if (error.message === 'Category already exists') {
-       return res.status(400).json({ error: error.message });
+       res.status(400).json({ error: error.message });
+       return;
     }
     console.error('Error creating category:', error);
     res.status(500).json({ error: 'Internal server error' });

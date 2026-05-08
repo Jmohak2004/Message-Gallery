@@ -1,25 +1,26 @@
-import { Request, Response, NextFunction } from 'express';
-import { AnyZodObject, ZodError } from 'zod';
+import { Request, Response, NextFunction, RequestHandler } from 'express';
+import { ZodTypeAny, ZodError } from 'zod';
 
-export const validate = (schema: AnyZodObject) => 
-  async (req: Request, res: Response, next: NextFunction) => {
+export const validate = (schema: ZodTypeAny): RequestHandler => 
+  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       await schema.parseAsync({
         body: req.body,
         query: req.query,
         params: req.params,
       });
-      return next();
+      next();
     } catch (error) {
       if (error instanceof ZodError) {
-        return res.status(400).json({
+        res.status(400).json({
           error: 'Validation Error',
-          details: error.errors.map(err => ({
+          details: (error.issues || []).map(err => ({
             field: err.path.join('.'),
             message: err.message
           }))
         });
+        return;
       }
-      return res.status(400).json({ error: 'Internal validation error' });
+      res.status(400).json({ error: 'Internal validation error' });
     }
   };
