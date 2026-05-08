@@ -15,6 +15,7 @@
   "description": "",
   "devDependencies": {
     "@types/express": "^5.0.0",
+    "@types/morgan": "^1.9.10",
     "@types/node": "^22.10.2",
     "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",
@@ -24,6 +25,11 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "mongoose": "^9.6.1"
+    "express-rate-limit": "^8.5.1",
+    "helmet": "^8.1.0",
+    "mongoose": "^9.6.1",
+    "morgan": "^1.10.1",
+    "winston": "^3.19.0",
+    "zod": "^4.4.3"
   }
 }
