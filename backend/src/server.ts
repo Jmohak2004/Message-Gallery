@@ -6,6 +6,7 @@ import connectDB from './utils/db';
 import dataRoutes from './routes/data.routes';
 import categoryRoutes from './routes/category.routes';
 import exampleRoutes from './routes/example.routes';
+import { errorHandler } from './middlewares/error.middleware';
 
 dotenv.config();
 
@@ -27,7 +28,10 @@ app.get('/', (_req: Request, res: Response) => {
 // Routes
 app.use('/api/data', dataRoutes);
 app.use('/api/categories', categoryRoutes);
-app.use('/api/examples', exampleRoutes); // For POST /api/examples
+app.use('/api/examples', exampleRoutes);
+
+// Global Error Handler
+app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
