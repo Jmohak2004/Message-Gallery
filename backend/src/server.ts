@@ -8,6 +8,7 @@ import connectDB from './utils/db';
 import dataRoutes from './routes/data.routes';
 import categoryRoutes from './routes/category.routes';
 import exampleRoutes from './routes/example.routes';
+import authRoutes from './routes/auth.routes';
 import { errorHandler } from './middlewares/error.middleware';
 import { morganMiddleware } from './middlewares/morgan.middleware';
 import { logger } from './utils/logger';
@@ -48,6 +49,7 @@ app.get('/', (_req: Request, res: Response) => {
 });
 
 // Routes
+app.use('/api/auth', authRoutes);
 app.use('/api/data', dataRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/examples', exampleRoutes);
