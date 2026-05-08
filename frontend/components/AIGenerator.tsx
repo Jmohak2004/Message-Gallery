@@ -38,20 +38,26 @@ export default function AIGenerator() {
   if (!isAuthenticated) return null;
 
   return (
-    <div className="mx-auto w-full max-w-4xl rounded-3xl bg-white p-6 shadow-xl border border-gray-100">
-      <div className="flex items-center gap-2 mb-6">
-        <Wand2 className="h-6 w-6 text-indigo-600" />
-        <h2 className="text-xl font-bold text-gray-900">AI Message Generator</h2>
+    <div className="mx-auto w-full max-w-4xl rounded-[2.5rem] bg-white p-10 shadow-2xl shadow-indigo-100/50 border border-gray-100 relative overflow-hidden">
+      <div className="absolute top-0 right-0 p-8 opacity-5">
+        <Cpu className="h-24 w-24" />
       </div>
       
-      <div className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">What do you want to say?</label>
+      <div className="flex items-center gap-3 mb-8">
+        <div className="p-2 rounded-xl bg-indigo-600">
+          <Wand2 className="h-5 w-5 text-white" />
+        </div>
+        <h2 className="text-2xl font-bold text-gray-900 tracking-tight">AI Message Studio</h2>
+      </div>
+      
+      <div className="space-y-6">
+        <div className="relative group">
+          <label className="block text-sm font-bold text-gray-700 mb-3 ml-1 uppercase tracking-wider">Describe your objective</label>
           <textarea
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            placeholder="e.g., Write a polite rejection for a job applicant..."
-            className="w-full h-32 rounded-2xl border border-gray-200 p-4 text-gray-900 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
+            placeholder="e.g., A follow-up email after a second-round interview for a senior developer role..."
+            className="w-full h-40 rounded-3xl border border-gray-200 p-6 text-gray-900 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-50/50 outline-none transition-all resize-none text-lg bg-gray-50/30"
           />
         </div>
 
