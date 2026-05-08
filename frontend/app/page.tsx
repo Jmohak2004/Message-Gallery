@@ -2,6 +2,12 @@
 import React from "react";
 import { m as motion } from "framer-motion"; // compatible with Framer Motion v10+
 import { ClipboardCheck, MessageCircle, Zap, Mail } from "lucide-react";
+import dynamic from "next/dynamic";
+
+const AIGenerator = dynamic(() => import("@/components/AIGenerator"), {
+  loading: () => <div className="h-[400px] flex items-center justify-center bg-gray-50 rounded-3xl animate-pulse text-gray-400">Loading AI Generator...</div>,
+  ssr: false,
+});
 
 // -------------------- FeatureCard Component --------------------
 interface FeatureCardProps {
