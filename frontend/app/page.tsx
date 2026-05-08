@@ -53,6 +53,11 @@ const LandingPage: React.FC = () => {
         </motion.button>
       </section>
 
+      {/* AI Generator Section */}
+      <section className="py-12 px-4 md:px-8 bg-gray-50/50">
+        <AIGenerator />
+      </section>
+
       {/* Features Section */}
       <section id="features" className="py-12 md:py-20 px-4 md:px-8 bg-white">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-gray-800">
