@@ -38,7 +38,7 @@ app.use(express.json());
 
 // Root route
 app.get('/', (_req: Request, res: Response) => {
-  res.send('Welcome to Valueye Technologies!');
+  res.send('Welcome to MessageMate API!');
 });
 
 // Routes

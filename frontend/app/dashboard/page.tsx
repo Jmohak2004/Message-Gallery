@@ -1,29 +1,35 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { api } from '@/lib/api';
 import { useAuthStore } from '@/store/authStore';
 import { useRouter } from 'next/navigation';
 import { Heart, History, Trash2, Copy, Check, User as UserIcon } from 'lucide-react';
 
+interface Favorite {
+  _id: string;
+  exampleId?: { text: string };
+  customText?: string;
+  createdAt: string;
+}
+
+interface HistoryItem {
+  _id: string;
+  prompt: string;
+  response: string;
+  createdAt: string;
+}
+
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState<'favorites' | 'history'>('favorites');
-  const [favorites, setFavorites] = useState<any[]>([]);
-  const [history, setHistory] = useState<any[]>([]);
+  const [favorites, setFavorites] = useState<Favorite[]>([]);
+  const [history, setHistory] = useState<HistoryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const { user, isAuthenticated } = useAuthStore();
   const router = useRouter();
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      router.push('/login');
-      return;
-    }
-    fetchData();
-  }, [isAuthenticated]);
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setLoading(true);
     try {
       const [favs, hist] = await Promise.all([
@@ -37,7 +43,15 @@ export default function DashboardPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push('/login');
+      return;
+    }
+    fetchData();
+  }, [isAuthenticated, router, fetchData]);
 
   const handleCopy = (text: string, id: string) => {
     navigator.clipboard.writeText(text);
@@ -48,7 +62,7 @@ export default function DashboardPage() {
   const handleDeleteFavorite = async (id: string) => {
     try {
       await api.removeFavorite(id);
-      setFavorites(favorites.filter(f => f._id !== id));
+      setFavorites(prev => prev.filter(f => f._id !== id));
     } catch (err) {
       console.error(err);
     }
@@ -106,7 +120,7 @@ export default function DashboardPage() {
                     </div>
                     <div className="flex items-center gap-2 self-end md:self-center">
                       <button
-                        onClick={() => handleCopy(fav.exampleId?.text || fav.customText, fav._id)}
+                        onClick={() => handleCopy(fav.exampleId?.text || fav.customText || '', fav._id)}
                         className="p-2 rounded-xl hover:bg-gray-50 transition-all text-gray-400 hover:text-indigo-600"
                       >
                         {copiedId === fav._id ? <Check className="h-5 w-5 text-green-500" /> : <Copy className="h-5 w-5" />}
@@ -129,7 +143,7 @@ export default function DashboardPage() {
                   <div key={item._id} className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100 group">
                     <div className="mb-4">
                       <p className="text-xs font-bold uppercase tracking-wider text-indigo-500 mb-1">Prompt</p>
-                      <p className="text-sm text-gray-600 italic">"{item.prompt}"</p>
+                      <p className="text-sm text-gray-600 italic">&quot;{item.prompt}&quot;</p>
                     </div>
                     <div className="relative rounded-xl bg-gray-50 p-4 border border-gray-100">
                       <p className="text-gray-800">{item.response}</p>

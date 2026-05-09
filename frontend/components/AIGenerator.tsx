@@ -2,9 +2,10 @@
 
 import React, { useState } from 'react';
 import { api } from '@/lib/api';
-import { Wand2, Copy, Check, Loader2 } from 'lucide-react';
+import { Wand2, Copy, Check, Loader2, Cpu } from 'lucide-react';
 import { useAuthStore } from '@/store/authStore';
 import { toast } from 'sonner';
+import Link from 'next/link';
 
 export default function AIGenerator() {
   const [prompt, setPrompt] = useState('');
@@ -21,7 +22,7 @@ export default function AIGenerator() {
       const response = await api.generateAI(prompt, tone);
       setResult(response.result);
       toast.success('Message generated successfully!');
-    } catch (err) {
+    } catch {
       toast.error('Failed to generate message. Please try again.');
     } finally {
       setLoading(false);
@@ -35,7 +36,25 @@ export default function AIGenerator() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  if (!isAuthenticated) return null;
+  if (!isAuthenticated) {
+    return (
+      <div className="mx-auto w-full max-w-4xl rounded-[2.5rem] bg-white p-16 shadow-2xl shadow-indigo-100/50 border border-gray-100 text-center">
+        <div className="p-4 rounded-full bg-indigo-50 w-fit mx-auto mb-6">
+          <Cpu className="h-8 w-8 text-indigo-600" />
+        </div>
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">Unlock AI Message Studio</h2>
+        <p className="text-gray-500 mb-8 max-w-md mx-auto">
+          Sign in to generate professional, context-aware messages using NVIDIA&apos;s cutting-edge AI engine.
+        </p>
+        <Link 
+          href="/login"
+          className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-8 py-3 text-sm font-bold text-white shadow-lg hover:bg-indigo-700 transition-all"
+        >
+          Sign In to Get Started
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto w-full max-w-4xl rounded-[2.5rem] bg-white p-10 shadow-2xl shadow-indigo-100/50 border border-gray-100 relative overflow-hidden">

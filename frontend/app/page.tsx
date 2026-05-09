@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { ClipboardCheck, MessageCircle, Zap, Mail, ArrowRight, Star, Shield, Cpu } from "lucide-react";
+import { Zap, ArrowRight, Star, Shield, Cpu } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 

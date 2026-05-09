@@ -23,8 +23,9 @@ export default function LoginPage() {
       const response = await axiosInstance.post('/api/auth/login', { email, password });
       setAuth(response.data.user, response.data.token);
       router.push('/');
-    } catch (err: any) {
-      setError(err.response?.data?.error || 'Failed to login');
+    } catch (err: unknown) {
+      const errorObj = err as { response?: { data?: { error?: string } } };
+      setError(errorObj.response?.data?.error || 'Failed to login');
     } finally {
       setLoading(false);
     }
@@ -76,7 +77,7 @@ export default function LoginPage() {
           </button>
         </form>
         <div className="text-center text-sm text-gray-600">
-          Don't have an account?{' '}
+          {"Don't have an account?"}{' '}
           <Link href="/register" className="font-semibold text-indigo-600 hover:text-indigo-500">
             Sign up now
           </Link>

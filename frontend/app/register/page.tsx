@@ -24,8 +24,9 @@ export default function RegisterPage() {
       const response = await axiosInstance.post('/api/auth/register', { name, email, password });
       setAuth(response.data.user, response.data.token);
       router.push('/');
-    } catch (err: any) {
-      setError(err.response?.data?.error || 'Failed to register');
+    } catch (err: unknown) {
+      const errorObj = err as { response?: { data?: { error?: string } } };
+      setError(errorObj.response?.data?.error || 'Failed to register');
     } finally {
       setLoading(false);
     }
